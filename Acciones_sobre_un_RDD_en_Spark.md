@@ -42,3 +42,60 @@ print(collected_data)
 ```
 count = rdd.count()
 print(f"Number of elements in RDD: {count}")
+```
+## 3. take(n)
+## Devuelve los primeros n elementos del RDD como una lista.
+```
+# Acción take
+first_two_elements = rdd.take(2)
+print(first_two_elements)
+```
+## 4. reduce(func)
+## Agrega los elementos del RDD usando una función binaria especificada.
+```
+# Acción reduce
+sum_elements = rdd.reduce(lambda x, y: x + y)
+print(f"Sum of elements: {sum_elements}")
+```
+## 5. saveAsTextFile(path)
+## Guarda los elementos del RDD como un archivo de texto en el sistema de archivos especificado.
+```
+# Acción saveAsTextFile
+rdd.saveAsTextFile("/path/to/save/rdd_output")
+```
+# spark_rdd_actions.py
+```python
+from pyspark import SparkContext
+
+def main():
+    # Inicializar SparkContext
+  
+    sc = SparkContext("local", "RDD Actions Example")
+
+    # Crear un RDD
+    data = [1, 2, 3, 4, 5]
+    rdd = sc.parallelize(data)
+
+    # Acción collect
+    collected_data = rdd.collect()
+    print("Collect: ", collected_data)
+
+    # Acción count
+    count = rdd.count()
+    print(f"Number of elements in RDD: {count}")
+
+    # Acción take
+    first_two_elements = rdd.take(2)
+    print("First two elements: ", first_two_elements)
+
+    # Acción reduce
+    sum_elements = rdd.reduce(lambda x, y: x + y)
+    print(f"Sum of elements: {sum_elements}")
+
+    # Acción saveAsTextFile
+    rdd.saveAsTextFile("/path/to/save/rdd_output")
+
+if __name__ == "__main__":
+    main()
+
+
