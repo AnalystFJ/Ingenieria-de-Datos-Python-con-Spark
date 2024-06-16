@@ -44,3 +44,18 @@ spark_lines = text_file.filter(lambda line: "Spark" in line).count()
 print(f"Total lines: {total_lines}")
 print(f"Lines with 'Spark': {spark_lines}")
 sc.stop()
+```
+### Word Count
+```python
+from pyspark import SparkContext
+
+sc = SparkContext("local", "Word Count")
+text_file = sc.textFile("Data/sample_text.txt")
+counts = text_file.flatMap(lambda line: line.split(" ")) \
+                  .map(lambda word: (word, 1)) \
+                  .reduceByKey(lambda a, b: a + b)
+output = counts.collect()
+for (word, count) in output:
+    print(f"{word}: {count}")
+sc.stop()
+```
